@@ -1,13 +1,6 @@
 # new instructions
 
 
-go in to latest dir
-
-```
-cd ./base/1.0.2/
-```
-
-
 build the container
 
 ```
@@ -37,6 +30,7 @@ http://localhost:5901
 ```
 
 
+this was copied from https://github.com/piopi/docker-desktop he did all the heavy lifting i just adjusted a few things.
 
 
 # Docker Desktop [![Docker Image CI](https://github.com/piopi/cypress-desktop/actions/workflows/docker-image.yml/badge.svg)](https://github.com/piopi/cypress-desktop/actions/workflows/docker-image.yml) ![](https://img.shields.io/docker/pulls/piopirahl/docker-desktop.svg?maxAge=60480)
