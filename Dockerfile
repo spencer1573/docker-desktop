@@ -19,9 +19,6 @@ RUN apt-get update && \
     curl http://ftp.us.debian.org/debian/pool/main/liba/libappindicator/libappindicator3-1_0.4.92-7_amd64.deb --output /opt/libappindicator3-1_0.4.92-7_amd64.deb && \
     curl http://ftp.us.debian.org/debian/pool/main/libi/libindicator/libindicator3-7_0.5.0-4_amd64.deb --output /opt/libindicator3-7_0.5.0-4_amd64.deb && \
     apt-get install -y /opt/libappindicator3-1_0.4.92-7_amd64.deb /opt/libindicator3-7_0.5.0-4_amd64.deb; \
-    cd /tmp && \
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \ 
-    dpkg -i google-chrome-stable_current_amd64.deb; \ 
     rm -vf /opt/lib*.deb; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -64,3 +61,6 @@ COPY scripts/entrypoint.sh /src
 #Expose port 5901 to view display using VNC Viewer
 EXPOSE 5901 6901
 ENTRYPOINT ["/src/entrypoint.sh"]
+
+
+
