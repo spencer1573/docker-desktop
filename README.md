@@ -29,6 +29,16 @@ navigate to vnc
 http://localhost:5901
 ```
 
+### other helpful
+
+root into running container
+
+```
+docker exec -u root -it --workdir / <containerName> bash
+
+docker exec -u root -it --workdir / local-docker-desktop:latest bash
+```
+
 
 this was copied from https://github.com/piopi/docker-desktop he did all the heavy lifting i just adjusted a few things.
 

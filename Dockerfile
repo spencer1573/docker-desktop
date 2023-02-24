@@ -1,4 +1,4 @@
-FROM debian:11.1-slim
+FROM debian:bullseye
 
 ENV DISPLAY=:1 \
     VNC_PORT=5901 \
@@ -19,6 +19,26 @@ RUN apt-get update && \
     curl http://ftp.us.debian.org/debian/pool/main/liba/libappindicator/libappindicator3-1_0.4.92-7_amd64.deb --output /opt/libappindicator3-1_0.4.92-7_amd64.deb && \
     curl http://ftp.us.debian.org/debian/pool/main/libi/libindicator/libindicator3-7_0.5.0-4_amd64.deb --output /opt/libindicator3-7_0.5.0-4_amd64.deb && \
     apt-get install -y /opt/libappindicator3-1_0.4.92-7_amd64.deb /opt/libindicator3-7_0.5.0-4_amd64.deb; \
+	apt-transport-https \
+	ca-certificates \
+	curl \
+	gnupg \
+	hicolor-icon-theme \
+	libcanberra-gtk* \
+	libgl1-mesa-dri \
+	libgl1-mesa-glx \
+	libpangox-1.0-0 \
+	libpulse0 \
+	libv4l-0 \
+	fonts-symbola \
+	--no-install-recommends \
+	&& curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+	&& echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list \
+	&& apt-get update && apt-get install -y \
+	google-chrome-stable \
+	--no-install-recommends \
+	&& apt-get purge --auto-remove -y curl \
+	&& rm -rf /var/lib/apt/lists/* \
     rm -vf /opt/lib*.deb; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -44,6 +64,10 @@ RUN chmod 777 /root && mkdir /src
 RUN groupadd -g 61000 dockeruser; \
     useradd -g 61000 -l -m -s /bin/bash -u 61000 dockeruser
 
+# chrome groupadd
+RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome \
+    && mkdir -p /home/chrome/Downloads && chown -R chrome:chrome /home/chrome
+
 COPY assets/config/ /home/dockeruser/.config
 
 RUN chown -R dockeruser:dockeruser /home/dockeruser;\
@@ -56,11 +80,43 @@ USER dockeruser
 RUN echo  "debian version:  $(cat /etc/debian_version) \n" \
           "user:            $(whoami) \n"
 
+# Install Chrome
+# original
+# RUN apt-get update && apt-get install -y \
+# RUN apt-get install -y \
+# 	apt-transport-https \
+# 	ca-certificates \
+# 	curl \
+# 	gnupg \
+# 	hicolor-icon-theme \
+# 	libcanberra-gtk* \
+# 	libgl1-mesa-dri \
+# 	libgl1-mesa-glx \
+# 	libpangox-1.0-0 \
+# 	libpulse0 \
+# 	libv4l-0 \
+# 	fonts-symbola \
+# 	--no-install-recommends \
+# 	&& curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+# 	&& echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list \
+# 	&& apt-get update && apt-get install -y \
+# 	google-chrome-stable \
+# 	--no-install-recommends \
+# 	&& apt-get purge --auto-remove -y curl \
+# 	&& rm -rf /var/lib/apt/lists/*
+
+# Add chrome user
+
+COPY local.conf /etc/fonts/local.conf
+
+# Run Chrome as non privileged user
+# USER chrome
+
+
 COPY scripts/entrypoint.sh /src
 
 #Expose port 5901 to view display using VNC Viewer
 EXPOSE 5901 6901
 ENTRYPOINT ["/src/entrypoint.sh"]
-
 
 
