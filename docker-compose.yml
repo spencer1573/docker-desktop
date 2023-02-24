@@ -1,0 +1,9 @@
+version: '3'
+services:
+  local:
+    image: "local-docker-desktop:latest"
+    container_name: "local-docker-desktop"
+    ports: 
+        - "6901:6901"
+        - "5901:5901"
+
