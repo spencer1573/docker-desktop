@@ -4,7 +4,7 @@
 build the container
 
 ```
-docker build -t local-docker-desktop:latest .
+docker build -t local-chrome:latest .
 ```
 
 
@@ -36,8 +36,10 @@ root into running container
 ```
 docker exec -u root -it --workdir / <containerName> bash
 
-docker exec -u root -it --workdir / local-docker-desktop:latest bash
+docker exec -u root -it --workdir / local-chrome bash
 ```
+
+DONT use the tagged name local-docker-desktop:latest
 
 
 this was copied from https://github.com/piopi/docker-desktop he did all the heavy lifting i just adjusted a few things.

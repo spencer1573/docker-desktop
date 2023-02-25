@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:buster
 
 ENV DISPLAY=:1 \
     VNC_PORT=5901 \

@@ -1,8 +1,8 @@
 version: '3'
 services:
   local:
-    image: "local-docker-desktop:latest"
-    container_name: "local-docker-desktop"
+    image: "local/chrome:latest"
+    container_name: "local-chrome"
     ports: 
         - "6901:6901"
         - "5901:5901"
