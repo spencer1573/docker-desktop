@@ -2,8 +2,11 @@ version: '3'
 services:
   local:
     image: "local/chrome:latest"
+    build: .
     container_name: "local-chrome"
     ports: 
         - "6901:6901"
         - "5901:5901"
+    security_opt:
+      - seccomp=./chrome.json
 
