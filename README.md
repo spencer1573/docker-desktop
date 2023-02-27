@@ -7,7 +7,6 @@ build the container
 docker build -t local-chrome:latest .
 ```
 
-
 run it
 
 ```
@@ -39,10 +38,21 @@ docker exec -u root -it --workdir / <containerName> bash
 docker exec -u root -it --workdir / local-chrome bash
 ```
 
+
+
 DONT use the tagged name local-docker-desktop:latest
 
 
-this was copied from https://github.com/piopi/docker-desktop he did all the heavy lifting i just adjusted a few things.
+Credit
+
+1. this was copied from https://github.com/piopi/docker-desktop he did all the heavy lifting i just adjusted a few things. thank you (https://github.com/piopi)[piopi].
+
+2. many thanks (https://github.com/Shubham2503)[Shubham2503] for fixing what i could  not when i wanted to run chrome with the sandbox.  
+
+
+
+
+
 
 
 # Docker Desktop [![Docker Image CI](https://github.com/piopi/cypress-desktop/actions/workflows/docker-image.yml/badge.svg)](https://github.com/piopi/cypress-desktop/actions/workflows/docker-image.yml) ![](https://img.shields.io/docker/pulls/piopirahl/docker-desktop.svg?maxAge=60480)
