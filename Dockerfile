@@ -109,15 +109,15 @@ RUN echo  "debian version:  $(cat /etc/debian_version) \n" \
 
 COPY local.conf /etc/fonts/local.conf
 
-# Run Chrome as non privileged user
-# USER chrome
-
 COPY scripts/entrypoint.sh /src
 RUN sudo apt-get update \
     && sudo apt-get install libu2f-udev -y
 
 RUN sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN sudo apt install ./google-chrome-stable_current_amd64.deb -y
+
+# Run Chrome as non privileged user
+USER chrome
 
 #Expose port 5901 to view display using VNC Viewer
 EXPOSE 5901 6901
