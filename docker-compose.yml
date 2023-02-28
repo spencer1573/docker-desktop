@@ -9,4 +9,10 @@ services:
         - "5901:5901"
     security_opt:
       - seccomp=./chrome.json
+    # cap_add:
+    #  - SYS_PTRACE
+    # mem_reservation: 8192m
+    # mem_limit: 16384m
+
+
 

@@ -4,7 +4,7 @@
 build the container
 
 ```
-docker build -t local-chrome:latest .
+docker build -t local/chrome .
 ```
 
 run it

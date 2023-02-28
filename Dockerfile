@@ -18,27 +18,28 @@ RUN apt-get update && \
     tigervnc-standalone-server tigervnc-common firefox-esr; \
     curl http://ftp.us.debian.org/debian/pool/main/liba/libappindicator/libappindicator3-1_0.4.92-7_amd64.deb --output /opt/libappindicator3-1_0.4.92-7_amd64.deb && \
     curl http://ftp.us.debian.org/debian/pool/main/libi/libindicator/libindicator3-7_0.5.0-4_amd64.deb --output /opt/libindicator3-7_0.5.0-4_amd64.deb && \
-    apt-get install -y /opt/libappindicator3-1_0.4.92-7_amd64.deb /opt/libindicator3-7_0.5.0-4_amd64.deb; \
-	apt-transport-https \
-	ca-certificates \
-	curl \
-	gnupg \
-	hicolor-icon-theme \
-	libcanberra-gtk* \
-	libgl1-mesa-dri \
-	libgl1-mesa-glx \
-	libpangox-1.0-0 \
-	libpulse0 \
-	libv4l-0 \
-	fonts-symbola \
-	--no-install-recommends \
-	&& curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
-	&& echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list \
-	&& apt-get update && apt-get install -y \
-	google-chrome-stable \
-	--no-install-recommends \
-	&& apt-get purge --auto-remove -y curl \
-	&& rm -rf /var/lib/apt/lists/* \
+    apt-get install -yq libgconf-2-4 && \
+    # apt-get install -y /opt/libappindicator3-1_0.4.92-7_amd64.deb /opt/libindicator3-7_0.5.0-4_amd64.deb; \
+	# apt-transport-https \
+	# ca-certificates \
+	# curl \
+	# gnupg \
+	# hicolor-icon-theme \
+	# libcanberra-gtk* \
+	# libgl1-mesa-dri \
+	# libgl1-mesa-glx \
+	# libpangox-1.0-0 \
+	# libpulse0 \
+	# libv4l-0 \
+	# fonts-symbola \
+	# --no-install-recommends \
+	# && curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+	# && echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list \
+	# && apt-get update && apt-get install -y \
+	# google-chrome-stable \
+	# --no-install-recommends \
+	# && apt-get purge --auto-remove -y curl \
+	# && rm -rf /var/lib/apt/lists/* \
     rm -vf /opt/lib*.deb; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -113,11 +114,14 @@ COPY scripts/entrypoint.sh /src
 RUN sudo apt-get update \
     && sudo apt-get install libu2f-udev -y
 
+
 RUN sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN sudo apt install ./google-chrome-stable_current_amd64.deb -y
 
+
 # Run Chrome as non privileged user
-USER chrome
+# USER chrome
+# USER root
 
 #Expose port 5901 to view display using VNC Viewer
 EXPOSE 5901 6901
