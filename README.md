@@ -38,6 +38,19 @@ docker exec -u root -it --workdir / <containerName> bash
 docker exec -u root -it --workdir / local-chrome bash
 ```
 
+# secret sauce
+
+to get chrome to run correctly for some reason
+
+run as
+
+```
+google-chrome --disable-dev-shm-usage
+```
+
+i'm sure theres some library and distro optimizations i can do...
+but for now this works
+
 
 
 DONT use the tagged name local-docker-desktop:latest
